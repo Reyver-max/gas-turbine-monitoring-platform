@@ -10,6 +10,9 @@ The project combines DevOps, monitoring, backend engineering, machine learning, 
 
 ---
 
+<img width="1920" height="956" alt="Screenshot 2026-05-09 at 8 46 40" src="https://github.com/user-attachments/assets/7233ab43-d402-4ae8-83ea-3b63bd8816eb" />
+
+
 ## Features
 
 - Real-time synthetic gas turbine telemetry generation
@@ -30,6 +33,20 @@ Main system flow:
 Simulator → FastAPI Backend → ML Service → PostgreSQL → Grafana Dashboard
 
 The entire platform is orchestrated using Docker Compose.
+
+
+<img width="1536" height="1024" alt="ChatGPT Image May 9, 2026, 05_18_59 PM" src="https://github.com/user-attachments/assets/c893d2c2-031b-4b63-b159-4f26c70c2f6d" />
+
+
+
+
+| Arrow                | Label              |
+| -------------------- | ------------------ |
+| Simulator → Backend  | Telemetry JSON     |
+| Backend → ML Service | Prediction Request |
+| ML Service → Backend | Anomaly Score      |
+| Backend → PostgreSQL | Store Telemetry    |
+| Grafana → PostgreSQL | SQL Queries        |
 
 ---
 
