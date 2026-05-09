@@ -1,0 +1,47 @@
+services:
+  db:
+    image: postgres:16
+    container_name: turbine_postgres
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  backend:
+    build: ./backend
+    container_name: turbine_backend
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+
+  simulator:
+    build: ./simulator
+    container_name: turbine_simulator
+    restart: always
+    depends_on:
+      - backend
+  ml-service:
+    build: ./ml-service
+    container_name: turbine_ml_service
+    restart: always
+    ports:
+      - "9000:9000"
+  grafana:
+    image: grafana/grafana:latest
+    container_name: turbine_grafana
+    restart: always
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:
