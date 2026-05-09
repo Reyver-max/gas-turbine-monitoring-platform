@@ -16,11 +16,12 @@ services:
     container_name: turbine_backend
     restart: always
     env_file:
-      - .env
+      - .env.example
     ports:
       - "8000:8000"
     depends_on:
       - db
+      - ml-service
 
   simulator:
     build: ./simulator
@@ -28,12 +29,14 @@ services:
     restart: always
     depends_on:
       - backend
+
   ml-service:
     build: ./ml-service
     container_name: turbine_ml_service
     restart: always
     ports:
       - "9000:9000"
+
   grafana:
     image: grafana/grafana:latest
     container_name: turbine_grafana
